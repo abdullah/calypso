@@ -5,35 +5,37 @@ const path = require('path');
 const { get, set, result } = require('lodash');
 const { keyify } = require('./utils')
 
+function create(fileName, root) {
+  const defaultContent = JSON.stringify({});
+  const filePath = path.resolve(process.cwd(), root, fileName);
+  if (!fs.existsSync(filePath)) {
+    fs.writeFileSync(filePath, defaultContent);
+  }
+}
+
+function sync(fileName, base, root) {
+  const updatedKeys = {};
+  const primaryKeys = require(path.resolve(process.cwd(), root, base))
+  const currenKeysPath = path.resolve(process.cwd(), root, fileName);
+  const currenKeys = require(currenKeysPath)
+
+  keyify(primaryKeys).forEach((key) => {
+    const fallBackValue = get(primaryKeys, key);
+    const value = result(currenKeys, key, fallBackValue);
+    set(updatedKeys, [key], value);
+  });
+
+  fs.writeFileSync(currenKeysPath, JSON.stringify(updatedKeys, null, 2));
+}
+
 module.exports = (options) => {
-  const { languages, root, outputFolder, outputLanguage } = options;
+  const { extra, languages, root } = options;
 
-  let mainLanguagePath = path.resolve(process.cwd(), root, outputLanguage);
-  mainLanguagePath = mainLanguagePath + '.json'
+  languages.list.forEach(item => create(item, root))
+  languages.list.forEach(item => sync(item, languages.base, root))
 
-  const mainLanguage = require(mainLanguagePath);
-
-  languages.forEach((language) => {
-    const baseLanguagePath = path.resolve(process.cwd(), root, outputFolder, `${language}.json`);
-    const defaultContent = JSON.stringify({});
-
-    if (!fs.existsSync(baseLanguagePath)) {
-      fs.writeFileSync(baseLanguagePath, defaultContent);
-    }
-  });
-
-  languages.forEach((language) => {
-    const updatedLanguageBase = {};
-
-    const languageBasePath = path.resolve(process.cwd(), root, outputFolder, `${language}.json`);
-    const languageBase = require(languageBasePath)
-
-    keyify(mainLanguage).forEach((key) => {
-      const fallBackValue = get(mainLanguage, key);
-      const value = result(languageBase, key, fallBackValue);
-      set(updatedLanguageBase, [key], value);
-    });
-
-    fs.writeFileSync(languageBasePath, JSON.stringify(updatedLanguageBase, null, 2));
-  });
+  if (extra) {
+    extra.list.forEach(item => create(item, root))
+    extra.list.forEach(item => sync(item, extra.base, root))
+  }
 }

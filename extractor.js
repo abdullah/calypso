@@ -3,11 +3,10 @@ const { createExtractor } = require('./utils');
 const path = require('path');
 
 module.exports = (options) => {
-  const { root, outputLanguage } = options;
+  const { root, languages } = options;
   const { extractor, parse } = createExtractor(options);
 
-  let extractPath = path.resolve(process.cwd(), root, outputLanguage);
-  extractPath = extractPath + '.json'
+  let extractPath = path.resolve(process.cwd(), root, languages.base);
 
   return parse()
     .then(() => {
