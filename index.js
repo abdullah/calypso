@@ -7,7 +7,7 @@ const extractor = require('./extractor');
 const synchronizer = require('./synchronizer');
 
 const options = yargs
-  .usage('Usage: vi18n -c <config.js>')
+  .usage('Usage: i18n-exractor -c <config.js>')
   .option('c', {
     alias: 'config',
     describe: 'Config file',
