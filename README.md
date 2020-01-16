@@ -26,21 +26,11 @@ module.exports = {
       'src/i18n/tr.json',
       'src/i18n/fr.json',
     ]
-  },
-  extra: {
-    base: 'src/i18n/en_extra.json',
-    list: [
-      'src/i18n/en_extra.json',
-      'src/i18n/tr_extra.json',
-      'src/i18n/fr_extra.json',
-    ]
-  },
+  }
 };
 ```
 
 - `root`: The project root path.
 - `languages`: This option must be set. Collected keys will be extracted as `base` option.
-- `extra`: If you want to store **extra** pairs for specific language use this option. Extra files are not overrided by extractor. The `extra.base` option is used as reference language.
-
 
 > In memory of [Captain Cousteau](https://tr.wikipedia.org/wiki/Jacques-Yves_Cousteau)
