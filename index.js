@@ -1,30 +1,23 @@
 #!/usr/bin/env node
 /* eslint-disable import/no-dynamic-require */
-const { merge } = require('lodash')
 const path = require('path');
 const yargs = require('yargs');
-const extractor = require('./extractor');
-const synchronizer = require('./synchronizer');
+const extractor = require('./lib/extractor');
+const synchronizer = require('./lib/synchronizer');
 
 const options = yargs
-  .usage('Usage: i18n-exractor -c <config.js>')
+  .usage('Usage: i18n-extractor -c <config.js>')
   .option('c', {
     alias: 'config',
     describe: 'Config file',
+    demandOption: true
   })
   .argv;
 
-let defaultOptions = require('./defaultConfig');
-let userOptions = {};
+const configPath = path.resolve(process.cwd(), options.config);
+const userOptions = require(configPath);
 
-if (options.config) {
-  const configPath = path.resolve(process.cwd(), options.config);
-  userOptions = require(configPath);
-}
-
-const mergedOptions = merge(defaultOptions, userOptions)
-
-extractor(mergedOptions)
+extractor(userOptions)
   .then(() => {
-    synchronizer(mergedOptions)
+    synchronizer(userOptions)
   })

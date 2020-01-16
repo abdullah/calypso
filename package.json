@@ -1,5 +1,5 @@
 {
-  "name": "vispera-i18n-tool",
+  "name": "i18n-extractor",
   "version": "1.0.2",
   "main": "index.js",
   "author": "Abdullah Mara <mara.abdullah00@gmail.com>",
