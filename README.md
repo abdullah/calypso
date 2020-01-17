@@ -1,20 +1,19 @@
-### [Calypso](https://tr.wikipedia.org/wiki/Calypso_(gemi)) extracts and syncs i18n keys from code base
+### [calypso-extractor](https://tr.wikipedia.org/wiki/calypso-extractor_(gemi)) extracts and syncs i18n keys from code base
 
-## Add to project
+## Install
 
-Add following line to package.json. Version should be **latest**
 
-`"calypso": "git+ssh://git@gitlab.vispera.co/cloud/tools/calypso.git#<version>",`
+`yarn add calypso-extractor`
 
 ## Usage
 
 Add following line as script
     
-`"calypso": "calypso -c calypso-config.js"`
+`"calypso-extractor": "calypso-extractor -c calypso-extractor-config.js"`
 
 ## Configurations
 
-`calypso-config.js`
+`calypso-extractor-config.js`
 
 ```javascript
 module.exports = {

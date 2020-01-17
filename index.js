@@ -6,7 +6,7 @@ const extractor = require('./lib/extractor');
 const synchronizer = require('./lib/synchronizer');
 
 const options = yargs
-  .usage('Usage: calypso -c <config.js>')
+  .usage('Usage: calypso-extractor -c <config.js>')
   .option('c', {
     alias: 'config',
     describe: 'Config file',
