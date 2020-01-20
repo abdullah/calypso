@@ -17,13 +17,13 @@ Add following line as script
 
 ```javascript
 module.exports = {
-  root: '.',
+  root: 'src',
   languages: {
-    base: 'src/i18n/en.json',
+    base: 'i18n/en.json',
     list: [
-      'src/i18n/en.json',
-      'src/i18n/tr.json',
-      'src/i18n/fr.json',
+      'i18n/en.json',
+      'i18n/tr.json',
+      'i18n/fr.json',
     ]
   }
 };
